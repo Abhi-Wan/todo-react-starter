@@ -1,16 +1,9 @@
 import { nanoid } from "nanoid";
 import { useEffect, useRef, useState } from "react";
+import { usePrevious } from "./functions/usePrevious";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
-
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
 
 const FILTER_MAP = {
   All: () => true,
@@ -80,7 +73,7 @@ function App(props) {
 
   const listHeadingRef = useRef(null);
   const prevTaskLength = usePrevious(tasks.length);
-  
+
   useEffect(() => {
     if (tasks.length < prevTaskLength) {
       listHeadingRef.current.focus();
